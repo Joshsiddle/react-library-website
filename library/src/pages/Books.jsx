@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { books } from '../data'
 import Book from '../components/ui/Book';
 
 const Books = ({ books: initialBooks }) => {
@@ -8,6 +7,12 @@ const Books = ({ books: initialBooks }) => {
     function filterBooks(filter) {
         if (filter === 'LOW_TO_HIGH') {
             setBooks(books.slice().sort((a, b) => (a.salePrice || a.originalPrice) - (b.salePrice || b.originalPrice)))
+        }
+        if (filter === 'HIGH_TO_LOW') {
+            setBooks(books.slice().sort((a, b) => (b.salePrice || b.originalPrice) - (a.salePrice || a.originalPrice)))
+        }
+        if (filter === 'RATING') {
+            setBooks(books.slice().sort((a, b) => (b.rating) - (a.rating)))
         }
     }
     return (
@@ -26,8 +31,8 @@ const Books = ({ books: initialBooks }) => {
                                 </select>
                             </div>
                             <div className="books">
-                                {books.map((book) => (
-                                    <Book book={book} key={book.id} />
+                                { books.map((book) => (
+                                        <Book book={book} key={book.id} />
                                 ))}
                             </div>
                         </div>
